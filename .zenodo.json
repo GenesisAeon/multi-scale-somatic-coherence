@@ -1,6 +1,6 @@
 {
-  "title": "diamond-setup — P-INFRA-1: Universal Python project scaffold — generate professional project skeletons in seconds",
-  "description": "<p>Universal Python project scaffold — generate professional project skeletons in seconds.</p><p>Part of the <strong>GenesisAeon</strong> ecosystem (P-INFRA-1, domain: ecosystem infrastructure / template scaffold).</p><p>See <a href=\"https://github.com/GenesisAeon/diamond-setup\">github.com/GenesisAeon/diamond-setup</a> for source, documentation, and reproducibility notebooks.</p>",
+  "title": "genesis-mssc — P49: Multi-Scale Somatic Coherence (MSSC) + Temporal Integrity Probe (TIP) — exploratory GenesisAeon research module",
+  "description": "<p><strong>Exploratory research module</strong> — Pre-Alpha. Results are not ready for clinical or policy use.</p><p>genesis-mssc bundles two submodules: <strong>MSSC</strong> (Multi-Scale Somatic Coherence Framework) for cross-scale EEG–HRV coupling analysis on PhysioNet datasets (CAP Sleep DB, SHHS), and <strong>TIP</strong> (Temporal Integrity Probe), a context-manipulation harness for measuring text-behaviour consistency in AI agents.</p><p>MSSC will qualify as GenesisAeon domain 18 only when its CREP integration gate (four simultaneous conditions: significance, null-exclusion, stable β-fit, independent replication) is satisfied — currently BLOCKED. TIP is a future P50 candidate once it produces Γ_somatic via a full Diamond Interface.</p><p>Part of the <strong>GenesisAeon genesis-os ecosystem</strong> (P49, domain: somatic coherence / temporal integrity). See <a href=\"https://github.com/GenesisAeon/multi-scale-somatic-coherence\">github.com/GenesisAeon/multi-scale-somatic-coherence</a> for source and documentation.</p>",
   "creators": [
     {
       "name": "Römer, Johann",
@@ -12,11 +12,18 @@
   "access_right": "open",
   "keywords": [
     "GenesisAeon",
-    "P-INFRA-1",
-    "ecosystem infrastructure",
+    "genesis-os",
+    "P49",
+    "MSSC",
+    "TIP",
+    "EEG",
+    "HRV",
+    "physiological coherence",
+    "somatic coherence",
     "UTAC",
     "CREP",
-    "open science"
+    "open science",
+    "exploratory"
   ],
   "related_identifiers": [
     {
@@ -26,7 +33,7 @@
       "scheme": "doi"
     }
   ],
-  "version": "2.1.0",
+  "version": "0.1.0",
   "communities": [
     {
       "identifier": "genesisaeon"

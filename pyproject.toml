@@ -1,27 +1,39 @@
 [project]
-name = "diamond-setup"
-version = "2.1.0"
-description = "Universal Python project scaffold — generate professional project skeletons in seconds"
+name = "genesis-mssc"
+version = "0.1.0"
+description = "Multi-Scale Somatic Coherence (MSSC) + Temporal Integrity Probe (TIP) — exploratory GenesisAeon research module"
 readme = "README.md"
 license = { text = "MIT" }
-authors = [{ name = "GenesisAeon" }]
+authors = [{ name = "Römer, Johann", email = "joberoemer@gmail.com" }]
 requires-python = ">=3.11"
-keywords = ["scaffold", "template", "cli", "project-generator", "skeleton"]
+keywords = [
+    "GenesisAeon",
+    "MSSC",
+    "TIP",
+    "EEG",
+    "HRV",
+    "physiological coherence",
+    "somatic coherence",
+    "UTAC",
+    "CREP",
+    "open science",
+    "genesis-os",
+]
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Environment :: Console",
-    "Intended Audience :: Developers",
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Topic :: Software Development :: Code Generators",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
 ]
 dependencies = [
-    "typer>=0.12.0",
-    "rich>=13.7.0",
-    "pyyaml>=6.0",
+    "numpy>=1.26",
+    "scipy>=1.13",
     "pydantic>=2.7",
+    "wfdb>=4.1",
 ]
 
 [project.optional-dependencies]
@@ -35,28 +47,27 @@ dev = [
     "pre-commit>=3.7.0",
     "pytest>=8.0.0",
     "pytest-cov>=5.0.0",
+    # diamond-setup dev deps (kept for existing scaffold tests)
+    "typer>=0.12.0",
+    "rich>=13.7.0",
+    "pyyaml>=6.0",
 ]
-research = [
-    "numpy>=1.26",
-    "scipy>=1.13",
-]
-
-[project.scripts]
-diamond = "diamond_setup.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/GenesisAeon/diamond-setup"
-Repository = "https://github.com/GenesisAeon/diamond-setup"
-Documentation = "https://genesisaeon.github.io/diamond-setup"
-Issues = "https://github.com/GenesisAeon/diamond-setup/issues"
-Zenodo = "https://doi.org/10.5281/zenodo.XXXXXXX"
+Homepage = "https://github.com/GenesisAeon/multi-scale-somatic-coherence"
+Repository = "https://github.com/GenesisAeon/multi-scale-somatic-coherence"
+Issues = "https://github.com/GenesisAeon/multi-scale-somatic-coherence/issues"
+Zenodo = "https://doi.org/10.5281/zenodo.PLACEHOLDER"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build]
+dev-mode-dirs = ["src"]
+
 [tool.hatch.build.targets.wheel]
-packages = ["src/diamond_setup", "mssc", "tip"]
+packages = ["mssc", "tip"]
 
 [tool.ruff]
 line-length = 100
@@ -73,11 +84,11 @@ ignore = ["B008"]  # typer uses function calls in defaults
 
 [tool.pytest.ini_options]
 testpaths = ["tests", "mssc/tests", "tip/tests"]
-addopts = "--cov=diamond_setup --cov-report=term-missing -v"
+addopts = "--cov=mssc --cov=tip --cov-report=term-missing -v"
 
 [tool.coverage.run]
-source = ["src"]
-omit = ["tests/*"]
+source = ["mssc", "tip"]
+omit = ["tests/*", "mssc/tests/*", "tip/tests/*"]
 
 [tool.mypy]
 python_version = "3.11"
@@ -85,4 +96,3 @@ strict = true
 warn_return_any = true
 warn_unused_configs = true
 ignore_missing_imports = true
-
