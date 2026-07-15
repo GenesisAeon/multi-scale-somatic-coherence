@@ -83,16 +83,19 @@ See `falsification_log.md` for flags on each run.
 ## CREP Integration Gate status
 
 Per the MSSC specification, Section 6.1, results may only be registered
-as CREP domain 18 when all four conditions are simultaneously satisfied.
+as CREP domain 18 when all five conditions are simultaneously satisfied.
 Gate status is a three-state enum: `blocked` → `pending_review` → `passed`
-(see `mssc/crep_gate.py`).
+(see `mssc/crep_gate.py`). The five-condition requirement reflects the
+P41 ↔ P49 validation loop: condition (e) is the empirical bridge between
+the Ρ_sem theory (P41) and the TIP instrument (P49).
 
-| Condition | Key | Current status |
-|---|---|---|
-| (a) Coupling statistically significant | `coupling_significant` | `False` |
-| (b) Null hypothesis excluded (effect size) | `null_excluded` | `False` |
-| (c) β-fit stable across ≥2 datasets | `beta_fit_stable` | `False` |
-| (d) Replication on SHHS cohort | `replicated_shhs` | `False` |
+| Condition | Key | Criterion | Current status |
+|---|---|---|---|
+| (a) Coupling statistically significant | `coupling_significant` | p_corrected < 0.05, ≥80% subjects | `False` |
+| (b) Null hypothesis excluded | `null_excluded` | effect_size_z ≥ 2.0 | `False` |
+| (c) β-fit stable | `beta_fit_stable` | R² ≥ 0.90, ≥75% subjects, ≥2 datasets | `False` |
+| (d) Replication on SHHS cohort | `replicated_shhs` | independent cohort | `False` |
+| (e) Ρ_sem/TIP correlation tested | `rho_sem_correlation_tested` | Spearman ρ ≥ 0.3, n ≥ 30 pairs | `False` |
 
 **Current gate status: `blocked`** (no conditions satisfied yet)
 
@@ -100,21 +103,46 @@ Gate status is a three-state enum: `blocked` → `pending_review` → `passed`
 
 ## Connection to Ρ_sem (scope-resilience, P41)
 
-TIP consistency scores are hypothesised to correlate with Ρ_sem —
-the hallucination-resilience metric derived from semantic trajectory
-curvature. The formal prediction:
+### P41 ↔ P49 validation loop
 
-> A model on a high-resilience semantic path (high Ρ_sem) should produce
-> more consistent outputs under temporal perturbation (higher TIP
-> consistency score) than a model on a low-resilience path.
+P41 (scope-resilience) provides the theoretical Ρ_sem framework.
+P49 (genesis-mssc / TIP) provides the only external behavioural test of
+that framework without access to model internals. This is a validation
+loop, not a circular dependency:
 
-This is a **testable prediction, not a confirmed result**. It makes TIP
-the first empirical test of the Ρ_sem framework from the outside, without
-access to internal model states. Confirmation would require:
+- **P41 → P49 (conceptual):** the Ρ_sem formula generates a testable
+  prediction about observable TIP scores.
+- **P49 → P41 (empirical):** TIP results either support or falsify the
+  prediction, updating the evidential status of the Ρ_sem framework.
 
-1. Computing Ρ_sem for a set of model/prompt pairs via P41.
-2. Running TIP on the same pairs under matched temporal perturbations.
-3. Reporting the rank correlation (Spearman ρ) between the two scores.
+Neither package is independently validated until condition (e) is satisfied.
 
-Until step 3 is executed and logged in `falsification_log.md`, this
-connection is recorded here as an open, falsifiable hypothesis.
+### Pre-registered falsification criterion
+
+**Hypothesis:** A model on a high-resilience semantic path (high Ρ_sem)
+produces more consistent outputs under temporal perturbation (higher TIP
+consistency score) than a model on a low-resilience path.
+
+**Rejection criterion (pre-registered):**
+Spearman ρ < 0.3 at n ≥ 30 path-perturbation pairs refutes the hypothesis.
+
+This threshold is fixed in `mssc/crep_gate.py` as
+`RHO_SEM_FALSIFICATION_THRESHOLD = 0.3` and `RHO_SEM_MIN_SAMPLE_SIZE = 30`
+**before any TIP runs against P41 data.** Post-hoc adjustment of this
+threshold invalidates the test and must be treated as a protocol deviation,
+logged separately in `falsification_log.md`.
+
+**This is a testable prediction, not a confirmed result.**
+
+### Falsification protocol (three steps)
+
+1. Compute Ρ_sem for ≥ 30 model/prompt pairs via P41.
+2. Run TIP on the same pairs under matched temporal perturbations
+   (at least one of: `temporal_shuffle`, `contradiction_injection`,
+   `gap_injection`).
+3. Compute Spearman ρ between TIP consistency scores and Ρ_sem values.
+   Log the result in `falsification_log.md` with run timestamp, n,
+   observed ρ, and verdict (supported / refuted / inconclusive if n < 30).
+
+Until step 3 is executed, condition (e) remains `False` and gate status
+remains `blocked`.
