@@ -119,6 +119,21 @@ Neither package is independently validated until condition (e) is satisfied.
 
 ### Pre-registered falsification criterion
 
+**Pre-registration commit:**
+`1cf1730776e9589f1d8551915d1fa2627dcf2ebd`
+Date: `2026-07-15T18:23:31+00:00`
+Repository: `GenesisAeon/multi-scale-somatic-coherence`
+Branch at time of commit: `claude/eeg-ecg-crep-datasets-cmmh4h`
+
+The threshold constants were introduced in this commit, before any TIP run
+against P41 data. The commit hash is the pre-registration record — no
+external registry is required because git provides tamper-evident timestamping.
+Any future change to `RHO_SEM_FALSIFICATION_THRESHOLD` or
+`RHO_SEM_MIN_SAMPLE_SIZE` must be accompanied by an entry in `CHANGELOG.md`
+under the heading **"Pre-registration amendment"**, stating the old value,
+the new value, the justification, and the date. Undocumented changes
+invalidate the test.
+
 **Hypothesis:** A model on a high-resilience semantic path (high Ρ_sem)
 produces more consistent outputs under temporal perturbation (higher TIP
 consistency score) than a model on a low-resilience path.
@@ -127,10 +142,9 @@ consistency score) than a model on a low-resilience path.
 Spearman ρ < 0.3 at n ≥ 30 path-perturbation pairs refutes the hypothesis.
 
 This threshold is fixed in `mssc/crep_gate.py` as
-`RHO_SEM_FALSIFICATION_THRESHOLD = 0.3` and `RHO_SEM_MIN_SAMPLE_SIZE = 30`
-**before any TIP runs against P41 data.** Post-hoc adjustment of this
-threshold invalidates the test and must be treated as a protocol deviation,
-logged separately in `falsification_log.md`.
+`RHO_SEM_FALSIFICATION_THRESHOLD = 0.3` and `RHO_SEM_MIN_SAMPLE_SIZE = 30`.
+Post-hoc adjustment invalidates the test; treat any such change as a
+protocol deviation, logged separately in `falsification_log.md`.
 
 **This is a testable prediction, not a confirmed result.**
 
