@@ -142,7 +142,11 @@ def load_all_cap_healthy(
 def _annotation_to_rr(annotation: Any) -> np.ndarray:
     """Convert WFDB annotation sample indices to RR intervals in ms."""
     beat_samples = np.array(
-        [s for s, sym in zip(annotation.sample, annotation.symbol) if sym in "NnLRBAaJSVrFejnE"]
+        [
+            s
+            for s, sym in zip(annotation.sample, annotation.symbol, strict=False)
+            if sym in "NnLRBAaJSVrFejnE"
+        ]
     )
     if len(beat_samples) < 2:
         raise ValueError("Fewer than 2 beat annotations — cannot compute RR intervals.")

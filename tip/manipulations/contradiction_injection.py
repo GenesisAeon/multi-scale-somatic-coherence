@@ -14,7 +14,6 @@ from typing import Any
 
 from tip.harness.session_runner import ContextEntry
 
-
 ContradictionSpec = list[dict[str, Any]]
 """
 Each item in ContradictionSpec is a dict with:

@@ -145,6 +145,8 @@ def _pearson_at_lag(x: np.ndarray, y: np.ndarray, lag: int) -> float:
         a, b = x[: len(x) + lag], y[-lag:]
     if len(a) < 2:
         return 0.0
+    if np.std(a) < 1e-12 or np.std(b) < 1e-12:
+        return 0.0
     return float(np.corrcoef(a, b)[0, 1])
 
 
@@ -172,8 +174,6 @@ def _transfer_entropy(source: np.ndarray, target: np.ndarray, k: int = 1) -> flo
     p_tpast_s = _hist(t_past, s)
     p_tfut_tpast = _hist(t_fut, t_past)
     p_tpast = _hist(t_past)
-
-    mask = (p_tfut_tpast_s > 0) & (p_tpast_s[:, :, np.newaxis].T > 0)
 
     # TE = sum p(t_fut, t_past, s) * log[ p(t_fut|t_past,s) / p(t_fut|t_past) ]
     # Reindex: p_tfut_tpast_s has shape (bins_tfut, bins_tpast, bins_s)

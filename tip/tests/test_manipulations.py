@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from tip.harness.session_runner import ContextEntry, SessionMode
+from tip.harness.session_runner import ContextEntry
 from tip.manipulations.contradiction_injection import contradiction_injection
 from tip.manipulations.gap_injection import gap_injection
 from tip.manipulations.temporal_shuffle import temporal_shuffle
@@ -12,7 +12,9 @@ from tip.manipulations.temporal_shuffle import temporal_shuffle
 
 def _make_entries(n: int) -> list[ContextEntry]:
     return [
-        ContextEntry(timestamp=f"2026-01-01T{i:02d}:00:00Z", content=f"Event {i}", entry_type="event")
+        ContextEntry(
+            timestamp=f"2026-01-01T{i:02d}:00:00Z", content=f"Event {i}", entry_type="event"
+        )
         for i in range(n)
     ]
 

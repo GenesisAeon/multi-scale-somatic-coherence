@@ -21,7 +21,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from mssc.analysis.coherence_metric import CoherenceResult, compute_coherence
+from mssc.analysis.coherence_metric import compute_coherence
 
 logger = logging.getLogger(__name__)
 
@@ -43,12 +43,18 @@ class NullTestResult:
     n_corrections: int | None = None
 
     def is_significant(self, alpha: float = 0.05, use_corrected: bool = True) -> bool:
-        p = self.p_value_corrected if (use_corrected and self.p_value_corrected is not None) else self.p_value
-        return p < alpha
+        use_p = (
+            self.p_value_corrected
+            if (use_corrected and self.p_value_corrected is not None)
+            else self.p_value
+        )
+        return use_p < alpha
 
     def summary(self) -> str:
         corrected = (
-            f", p_corrected={self.p_value_corrected:.4f}" if self.p_value_corrected is not None else ""
+            f", p_corrected={self.p_value_corrected:.4f}"
+            if self.p_value_corrected is not None
+            else ""
         )
         sig = "SIGNIFICANT" if self.is_significant() else "not significant"
         return (
@@ -137,7 +143,9 @@ def run_null_test(
     for metric, obs_val in observed_values.items():
         dist = np.array(surrogate_distributions[metric])
         if len(dist) < 10:
-            logger.warning("Too few valid surrogates for %s (%d) — p-value unreliable", metric, len(dist))
+            logger.warning(
+                "Too few valid surrogates for %s (%d) — p-value unreliable", metric, len(dist)
+            )
 
         surr_mean = float(np.mean(dist))
         surr_std = float(np.std(dist, ddof=1)) if len(dist) > 1 else float("nan")

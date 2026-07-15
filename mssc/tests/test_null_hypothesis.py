@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import numpy as np
-import pytest
 
 from mssc.analysis.null_hypothesis_test import phase_randomise, run_null_test
 
@@ -64,5 +63,6 @@ class TestRunNullTest:
         results = run_null_test(x, y, n_surrogates=100, seed=3)
         xcorr_result = next(r for r in results if r.metric == "xcorr_peak")
         assert xcorr_result.is_significant(), (
-            f"Expected significant xcorr for identical series, got p={xcorr_result.p_value_corrected}"
+            f"Expected significant xcorr for identical series, "
+            f"got p={xcorr_result.p_value_corrected}"
         )

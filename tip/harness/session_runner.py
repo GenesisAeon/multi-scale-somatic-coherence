@@ -18,16 +18,17 @@ not confusion as a mental state.
 from __future__ import annotations
 
 import logging
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from enum import Enum
-from typing import Any, Callable, Protocol
+from enum import StrEnum
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 AgentCallable = Callable[[list[dict[str, str]]], str]
 
 
-class SessionMode(str, Enum):
+class SessionMode(StrEnum):
     DENSE = "dense"
     SPARSE = "sparse"
     FRAGMENTED = "fragmented"
@@ -87,7 +88,9 @@ class SessionRunner:
         agent_fn: AgentCallable,
         mode: SessionMode,
         agent_id: str = "unknown",
-        manipulator: Callable[[list[ContextEntry]], tuple[list[ContextEntry], list[dict[str, Any]]]] | None = None,
+        manipulator: Callable[
+            [list[ContextEntry]], tuple[list[ContextEntry], list[dict[str, Any]]]
+        ] | None = None,
     ) -> None:
         self._agent_fn = agent_fn
         self._mode = mode
@@ -175,7 +178,7 @@ def _build_system_prompt(entries: list[ContextEntry], mode: SessionMode) -> str:
     )
     mode_note = {
         SessionMode.DENSE: "Full chronological history is provided.",
-        SessionMode.SPARSE: "Only summary/final states are provided; intermediate steps are omitted.",
+        SessionMode.SPARSE: "Only summary/final states are provided; intermediate steps omitted.",
         SessionMode.FRAGMENTED: "History is provided, but may contain inconsistencies or gaps.",
     }[mode]
     return (

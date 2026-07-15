@@ -5,7 +5,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from mssc.analysis.coherence_metric import compute_coherence, _zscore, _transfer_entropy
+from mssc.analysis.coherence_metric import _zscore, compute_coherence
 
 
 def _sine(n: int, freq: float = 0.1) -> np.ndarray:
