@@ -83,13 +83,38 @@ See `falsification_log.md` for flags on each run.
 ## CREP Integration Gate status
 
 Per the MSSC specification, Section 6.1, results may only be registered
-as CREP domain 18 when all four conditions are simultaneously satisfied:
+as CREP domain 18 when all four conditions are simultaneously satisfied.
+Gate status is a three-state enum: `blocked` → `pending_review` → `passed`
+(see `mssc/crep_gate.py`).
 
-| Condition | Current status |
-|---|---|
-| (a) Coupling statistically significant | PENDING |
-| (b) Null hypothesis excluded (effect size) | PENDING |
-| (c) β-fit stable across ≥2 datasets | PENDING |
-| (d) Replication on SHHS cohort | PENDING |
+| Condition | Key | Current status |
+|---|---|---|
+| (a) Coupling statistically significant | `coupling_significant` | `False` |
+| (b) Null hypothesis excluded (effect size) | `null_excluded` | `False` |
+| (c) β-fit stable across ≥2 datasets | `beta_fit_stable` | `False` |
+| (d) Replication on SHHS cohort | `replicated_shhs` | `False` |
 
-**Current gate status: BLOCKED (no conditions satisfied yet)**
+**Current gate status: `blocked`** (no conditions satisfied yet)
+
+---
+
+## Connection to Ρ_sem (scope-resilience, P41)
+
+TIP consistency scores are hypothesised to correlate with Ρ_sem —
+the hallucination-resilience metric derived from semantic trajectory
+curvature. The formal prediction:
+
+> A model on a high-resilience semantic path (high Ρ_sem) should produce
+> more consistent outputs under temporal perturbation (higher TIP
+> consistency score) than a model on a low-resilience path.
+
+This is a **testable prediction, not a confirmed result**. It makes TIP
+the first empirical test of the Ρ_sem framework from the outside, without
+access to internal model states. Confirmation would require:
+
+1. Computing Ρ_sem for a set of model/prompt pairs via P41.
+2. Running TIP on the same pairs under matched temporal perturbations.
+3. Reporting the rank correlation (Spearman ρ) between the two scores.
+
+Until step 3 is executed and logged in `falsification_log.md`, this
+connection is recorded here as an open, falsifiable hypothesis.

@@ -65,6 +65,8 @@ See [`tip/docs/epistemic_boundaries.md`](tip/docs/epistemic_boundaries.md) for w
 
 TIP is a future P50 candidate (somatische Entsprechung von `theta-resonance` P27) once it produces Γ_somatic via a full Diamond Interface.
 
+**Open falsifiable hypothesis:** TIP consistency scores are predicted to rank-correlate (Spearman ρ) with Ρ_sem values computed via P41 (scope-resilience). This makes TIP the first behavioural, externally-observable test of the Ρ_sem hallucination-resilience framework — no access to model internals required. *This is a testable prediction, not a confirmed result.* Confirmation requires: (1) computing Ρ_sem for matched model/prompt pairs via P41, (2) running TIP on the same pairs, (3) logging the correlation in `mssc/docs/falsification_log.md`.
+
 ---
 
 ## Installation
