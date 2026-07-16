@@ -61,7 +61,7 @@ A context-manipulation harness that measures text-behaviour consistency in AI ag
 Three manipulation types: `temporal_shuffle`, `contradiction_injection`, `gap_injection`.
 
 Consistency scoring uses behavioural language only — no mental-state attribution.
-See [`tip/docs/epistemic_boundaries.md`](tip/docs/epistemic_boundaries.md) for what TIP does and does not measure.
+See [`mssc/tip/docs/epistemic_boundaries.md`](mssc/tip/docs/epistemic_boundaries.md) for what TIP does and does not measure.
 
 TIP is a future P50 candidate (somatische Entsprechung von `theta-resonance` P27) once it produces Γ_somatic via a full Diamond Interface.
 

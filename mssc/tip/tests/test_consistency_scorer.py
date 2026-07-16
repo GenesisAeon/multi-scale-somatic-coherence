@@ -7,8 +7,8 @@ Two calibration baselines:
 
 from __future__ import annotations
 
-from tip.harness.session_runner import ContextEntry, SessionMode, SessionResult, Turn
-from tip.metrics.consistency_scorer import score_session
+from mssc.tip.harness.session_runner import ContextEntry, SessionMode, SessionResult, Turn
+from mssc.tip.metrics.consistency_scorer import score_session
 
 
 def _make_result(

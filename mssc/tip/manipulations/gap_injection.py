@@ -13,7 +13,7 @@ from typing import Any
 
 import numpy as np
 
-from tip.harness.session_runner import ContextEntry
+from mssc.tip.harness.session_runner import ContextEntry
 
 
 def gap_injection(

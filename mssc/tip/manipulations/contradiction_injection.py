@@ -12,7 +12,7 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import Any
 
-from tip.harness.session_runner import ContextEntry
+from mssc.tip.harness.session_runner import ContextEntry
 
 ContradictionSpec = list[dict[str, Any]]
 """

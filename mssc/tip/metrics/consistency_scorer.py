@@ -16,7 +16,7 @@ import re
 from dataclasses import dataclass, field
 from typing import Any
 
-from tip.harness.session_runner import SessionResult, Turn
+from mssc.tip.harness.session_runner import SessionResult, Turn
 
 # Keywords that indicate the agent is explicitly acknowledging an inconsistency
 _RECOVERY_PATTERNS = [

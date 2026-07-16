@@ -8,7 +8,7 @@ from __future__ import annotations
 import json
 from datetime import datetime
 
-from tip.metrics.consistency_scorer import ConsistencyScore
+from mssc.tip.metrics.consistency_scorer import ConsistencyScore
 
 
 def generate_report(

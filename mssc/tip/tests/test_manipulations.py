@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import pytest
 
-from tip.harness.session_runner import ContextEntry
-from tip.manipulations.contradiction_injection import contradiction_injection
-from tip.manipulations.gap_injection import gap_injection
-from tip.manipulations.temporal_shuffle import temporal_shuffle
+from mssc.tip.harness.session_runner import ContextEntry
+from mssc.tip.manipulations.contradiction_injection import contradiction_injection
+from mssc.tip.manipulations.gap_injection import gap_injection
+from mssc.tip.manipulations.temporal_shuffle import temporal_shuffle
 
 
 def _make_entries(n: int) -> list[ContextEntry]:
