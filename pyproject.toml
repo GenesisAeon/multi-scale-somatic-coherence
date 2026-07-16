@@ -47,9 +47,6 @@ dev = [
     "pre-commit>=3.7.0",
     "pytest>=8.0.0",
     "pytest-cov>=5.0.0",
-    # diamond-setup dev deps (kept for existing scaffold tests)
-    "typer>=0.12.0",
-    "rich>=13.7.0",
     "pyyaml>=6.0",
 ]
 
@@ -62,9 +59,6 @@ Zenodo = "https://doi.org/10.5281/zenodo.PLACEHOLDER"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
-
-[tool.hatch.build]
-dev-mode-dirs = ["src"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["mssc"]

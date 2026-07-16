@@ -19,6 +19,13 @@ import sys
 from pathlib import Path
 from typing import Any
 
+# Windows consoles default to a non-UTF-8 codepage, which breaks the ✓/✗
+# markers below with UnicodeEncodeError. Force UTF-8 stdout/stderr so the
+# script behaves the same on Windows as it already does in Linux CI.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
 import yaml
 
 # Pfad relativ zu diesem Skript
@@ -117,7 +124,9 @@ def validate_runtime(data: Any) -> list[str]:
     if coupling.get("enabled"):
         transport = coupling.get("transport", "none")
         if transport not in ("nats", "none"):
-            errors.append(f"coupling.transport muss 'nats' oder 'none' sein. Erhalten: '{transport}'")
+            errors.append(
+                f"coupling.transport muss 'nats' oder 'none' sein. Erhalten: '{transport}'"
+            )
         else:
             _ok(f"coupling.transport = '{transport}'")
 
