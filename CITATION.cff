@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "genesis-mssc"
+version: "0.1.0"
+date-released: "2026-07-16"
+authors:
+  - family-names: Römer
+    given-names: Johann
+    email: joberoemer@gmail.com
+repository-code: "https://github.com/GenesisAeon/multi-scale-somatic-coherence"
+license: MIT
+abstract: "Multi-Scale Somatic Coherence (MSSC) + Temporal Integrity Probe (TIP) — exploratory GenesisAeon research module"
+keywords:
+  - GenesisAeon
+  - UTAC
+  - CREP
+  - open-science
+  - MSSC
+  - TIP
+  - EEG
+  - HRV
